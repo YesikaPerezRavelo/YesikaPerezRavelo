@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 
 export default class ProductManager {
-  constructor(filePath) {
+  constructor() {
     this.path = `./data/products.json`;
     this.products = [];
     this.loadProducts();
@@ -40,7 +40,7 @@ export default class ProductManager {
   }
 
   async addProduct(productData) {
-    console.log("Received product data:", productData);
+    console.log("Reciviendo el producto:", productData);
     if (
       !productData.title ||
       !productData.description ||

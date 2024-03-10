@@ -27,7 +27,7 @@ app.post("/api/products", async (req, res) => {
   }
 
   try {
-    await productManager.AddProduct(productData);
+    await productManager.addProductddProduct(productData);
     res.status(201).send({ message: "Producto creado correctamente." });
   } catch (error) {
     console.error(error);
@@ -35,14 +35,12 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
-// PUT route using ProductManager method
 app.put("/api/products/:pid", async (req, res) => {
   const pid = req.params.pid;
-  res.send(await productManager.UpdateProduct(pid, req.body));
+  res.send(await productManager.updateProductpdateProduct(pid, req.body));
 });
 
-// DELETE route using ProductManager method
 app.delete("/api/products/:pid", async (req, res) => {
   const pid = req.params.pid;
-  res.send(await productManager.DeleteProduct(pid));
+  res.send(await productManager.deleteProduct(pid));
 });
