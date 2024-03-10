@@ -4,7 +4,6 @@ export default class CartManager {
   constructor(filePath) {
     this.path = filePath;
     this.carts = [];
-    this.lastCartId = 0;
     this.loadCarts();
   }
 
@@ -12,11 +11,8 @@ export default class CartManager {
     try {
       const data = await fs.readFile(this.path, "utf8");
       this.carts = JSON.parse(data);
-      if (Array.isArray(this.carts) && this.carts.length > 0) {
-        this.lastCartId = Math.max(...this.carts.map((cart) => cart.id));
-      }
     } catch (error) {
-      console.error("Error al cargar los carritos:", error);
+      console.error("Error loading carts:", error);
     }
   }
 
@@ -28,7 +24,7 @@ export default class CartManager {
         "utf-8"
       );
     } catch (error) {
-      console.error("Error al guardar los carritos:", error);
+      console.error("Error saving carts:", error);
     }
   }
 
@@ -44,18 +40,12 @@ export default class CartManager {
 
   async getCartProducts(cartId) {
     const cart = this.carts.find((cart) => cart.id === cartId);
-    if (cart) {
-      return cart.products;
-    } else {
-      console.error(`Carrito no encontrado.`);
-      return null;
-    }
+    return cart ? cart.products : null;
   }
 
   async addProductToCart(cartId, productId) {
     const cart = this.carts.find((cart) => cart.id === cartId);
     if (cart) {
-      // Verificar si el producto ya está en el carrito
       const existingProduct = cart.products.find(
         (product) => product.id === productId
       );
@@ -67,12 +57,12 @@ export default class CartManager {
       await this.saveCarts();
       return cart;
     } else {
-      console.error(`Carrito no encontrado.`);
+      console.error(`Cart not found.`);
       return null;
     }
   }
 
   generateUniqueId() {
-    return ++this.lastCartId;
+    return this.carts.length + 1;
   }
 }

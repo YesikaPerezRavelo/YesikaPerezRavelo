@@ -26,7 +26,7 @@ app.post("/api/products", async (req, res) => {
   }
 
   try {
-    await productManager.addProductddProduct(productData);
+    await productManager.addProduct(productData);
     res.status(201).send({ message: "Producto creado correctamente." });
   } catch (error) {
     console.error(error);
@@ -36,7 +36,7 @@ app.post("/api/products", async (req, res) => {
 
 app.put("/api/products/:pid", async (req, res) => {
   const pid = req.params.pid;
-  res.send(await productManager.updateProductpdateProduct(pid, req.body));
+  res.send(await productManager.updateProduct(pid, req.body));
 });
 
 app.delete("/api/products/:pid", async (req, res) => {

@@ -6,7 +6,6 @@ const cartManager = new CartManager("./data/cart.json");
 
 router.post("/", async (req, res) => {
   try {
-    // Crear un nuevo carrito
     const newCart = await cartManager.createCart();
     res.json(newCart);
   } catch (error) {
@@ -15,12 +14,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Ruta para obtener los productos de un carrito específico
 router.get("/:cid", async (req, res) => {
   try {
     const cartId = parseInt(req.params.cid);
 
-    // Obtener los productos del carrito por su ID
     const cartProducts = await cartManager.getCartProducts(cartId);
     if (!cartProducts) {
       return res.status(404).json({ error: "Carrito no encontrado" });
@@ -35,13 +32,11 @@ router.get("/:cid", async (req, res) => {
   }
 });
 
-// Ruta para agregar un producto a un carrito específico
 router.post("/:cid/product/:pid", async (req, res) => {
   try {
     const cartId = parseInt(req.params.cid);
     const productId = parseInt(req.params.pid);
 
-    // Agregar el producto al carrito
     const updatedCart = await cartManager.addProductToCart(cartId, productId);
     if (!updatedCart) {
       return res
