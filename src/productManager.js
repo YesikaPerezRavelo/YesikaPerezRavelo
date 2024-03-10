@@ -1,4 +1,4 @@
-import fs from "fs/promises";
+import fs from "fs";
 
 export default class ProductManager {
   constructor() {
@@ -8,19 +8,19 @@ export default class ProductManager {
     this.incrementId = this.calculateIncrementId();
   }
 
-  async loadProducts() {
+  loadProducts() {
     try {
-      const data = await fs.readFile(this.path, "utf-8");
-      return JSON.parse(data);
+      const data = fs.readFileSync(this.path, "utf-8");
+      this.products = JSON.parse(data);
     } catch (error) {
       console.error(error);
-      this.product = [];
+      this.products = [];
     }
   }
 
-  async saveProducts() {
+  saveProducts() {
     try {
-      await fs.writeFile(
+      fs.writeFileSync(
         this.path,
         JSON.stringify(this.products, null, 2),
         "utf-8"
@@ -40,7 +40,7 @@ export default class ProductManager {
   }
 
   async addProduct(productData) {
-    console.log("Reciviendo el producto:", productData);
+    console.log("Recibiendo el producto:", productData);
     if (
       !productData.title ||
       !productData.description ||
@@ -72,7 +72,7 @@ export default class ProductManager {
 
     console.log(`Añadiendo producto...`);
     this.products.push(product);
-    await this.saveProducts();
+    this.saveProducts();
     console.log(`${product.title} agregado.`);
   }
 
@@ -124,7 +124,7 @@ export default class ProductManager {
 
     this.products[index] = { ...this.products[index], ...updatedFields };
 
-    await this.saveProducts();
+    this.saveProducts();
     console.log(`Producto con ID ${id} actualizado...`);
     this.getProductById(id);
   }
@@ -137,7 +137,7 @@ export default class ProductManager {
     }
     console.log(`Eliminando producto con id ${id}...`);
     this.products = this.products.filter((product) => product.id !== id);
-    await this.saveProducts();
+    this.saveProducts();
     console.log(`Producto ${id} eliminado.`);
   }
 }

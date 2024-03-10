@@ -18,7 +18,6 @@ app.listen(PORT, () => {
   console.log(`Servidor activo http://localhost:${PORT}`);
 });
 
-// POST route using ProductManager method
 app.post("/api/products", async (req, res) => {
   const productData = req.body;
 
