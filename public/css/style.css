@@ -33,7 +33,6 @@ input {
   color: white;
 }
 
-/* Apply styles to the label to simulate a button */
 label.file-label {
   margin-top: 10px;
   display: inline-block;
@@ -54,13 +53,11 @@ label.file-label:hover {
   color: white;
 }
 
-/* Style the label when the file input has focus */
 input[type="file"]:focus + label.file-label {
   outline: 1px dotted #000;
   outline: -webkit-focus-ring-color auto 5px;
 }
 
-/* Style the label when a file is selected */
 input[type="file"]:valid + label.file-label {
-  background-color: #2ecc71;
+  background-color: black;
 }
