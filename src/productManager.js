@@ -45,12 +45,11 @@ export default class ProductManager {
       !productData.title ||
       !productData.description ||
       !productData.price ||
-      !productData.status ||
       !productData.code ||
       !productData.stock
     ) {
       console.error("Error: Todos los campos son obligatorios.");
-      return;
+      return "Error: Todos los campos son obligatorios.";
     }
 
     const codeExist = this.products.some(
@@ -61,19 +60,21 @@ export default class ProductManager {
       console.error(
         `Error: Producto con código ${productData.code} ya existe.`
       );
-      return;
+      return `Error: Producto con código ${productData.code} ya existe.`;
     }
 
     const product = {
       id: this.incrementId++,
       ...productData,
       thumbnail: productData.thumbnail ?? [],
+      status: true,
     };
 
     console.log(`Añadiendo producto...`);
     this.products.push(product);
     this.saveProducts();
     console.log(`${product.title} agregado.`);
+    return `${product.title} agregado.`;
   }
 
   getProducts(limit) {

@@ -1,15 +1,15 @@
 import { Router } from "express";
 import { uploader } from "../utils.js";
+import ProductManager from "../productManager.js";
 
+const PM = new ProductManager();
 const router = Router();
 
-const products = [];
-
 router.get("/", (req, res) => {
-  res.send(products);
+  res.send(PM.getProducts());
 });
 
-router.post("/", uploader.single("thumbnail"), (req, res) => {
+router.post("/", uploader.single("thumbnail"), async (req, res) => {
   if (!req.file) {
     return res
       .status(400)
@@ -25,9 +25,29 @@ router.post("/", uploader.single("thumbnail"), (req, res) => {
 
   const thumbnail = req.file.path;
 
-  products.push({ title, description, price, thumbnail, code, stock });
+  try {
+    const productData = {
+      title,
+      description,
+      price,
+      thumbnail,
+      code,
+      stock,
+      status: true,
+    };
 
-  res.status(201).send({ message: "Usuario creado correctamente!" });
+    const result = await PM.addProduct(productData);
+
+    const responseMessage = {
+      message: `${result}`,
+      ...productData,
+    };
+
+    res.status(201).send(responseMessage);
+  } catch (error) {
+    console.error("Error adding product:", error);
+    res.status(500).send({ error: "Error al agregar el producto." });
+  }
 });
 
 export default router;

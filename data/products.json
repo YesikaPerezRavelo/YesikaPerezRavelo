@@ -1,31 +1,32 @@
 [
   {
     "id": 1,
-    "title": "Titulo1",
-    "description": "Description1",
+    "title": "titulo1",
+    "description": "descripcion1",
     "price": "100",
-    "thumbnail": ["image1.webp"],
+    "thumbnail": "public\\img\\image1.webp",
     "code": "abc121",
-    "stock": "10"
+    "stock": "10",
+    "status": true
   },
-
   {
     "id": 2,
-    "title": "Titulo2",
-    "description": "Description2",
+    "title": "titulo2",
+    "description": "descripcion2",
     "price": "200",
-    "thumbnail": ["image2.webp"],
+    "thumbnail": "public\\img\\image2.webp",
     "code": "abc122",
-    "stock": "20"
+    "stock": "20",
+    "status": true
   },
-
   {
     "id": 3,
-    "title": "Titulo3",
-    "description": "Description3",
+    "title": "titulo3",
+    "description": "descripcion3",
     "price": "300",
-    "thumbnail": ["image3.webp"],
+    "thumbnail": "public\\img\\image3.webp",
     "code": "abc123",
-    "stock": "30"
+    "stock": "30",
+    "status": true
   }
 ]
